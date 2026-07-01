@@ -382,11 +382,11 @@ function Tips() {
 function Gallery() {
   const { t, locale } = useLang();
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
-  const galleryImages = galleryImagesData as Array<{
-    src: string;
-    caption?: Record<string, string>;
-    story?: Record<string, string>;
-  }>;
+  const galleryImages = galleryImagesData.map((src: string) => ({
+    src,
+    caption: {} as Record<string, string>,
+    story: {} as Record<string, string>,
+  }));
 
   useEffect(() => {
     if (lightboxIndex !== null && galleryImages.length > 0) {
