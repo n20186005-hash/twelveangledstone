@@ -101,6 +101,7 @@ function Nav() {
           <a href="#about">{t.nav.about}</a>
           <a href="#ecology">{t.nav.ecology}</a>
           <a href="#culture">{t.nav.culture}</a>
+          <a href="#saqsaywaman">{t.nav.saqsaywaman || "Saqsaywaman"}</a>
           <a href="#visiting">{t.nav.visiting}</a>
           <a href="#transportation">{t.nav.transportation}</a>
           <a href="#tips">{t.nav.tips}</a>
@@ -117,7 +118,14 @@ function Nav() {
 }
 
 function Hero() {
-  const { t } = useLang();
+  const { t, locale } = useLang();
+  const quechuaNote = locale === "zh"
+    ? "Hatunrumiyoc（哈图姆鲁米约克）= 克丘亚语「有大石头的街」"
+    : locale === "es"
+    ? "Hatunrumiyoc = «calle de la piedra grande» (quechua)"
+    : locale === "qu"
+    ? "Hatunrumiyoc = Hatun rumi yuq («calle de la piedra grande»)"
+    : "Hatunrumiyoc = 'street of the big stone' (Quechua)";
   return (
     <section className="hero">
       <div className="hero-bg" />
@@ -127,6 +135,9 @@ function Hero() {
         <p className="hero-tagline">{t.hero.tagline}</p>
         <h1 className="hero-title">{t.hero.title}</h1>
         <p className="hero-subtitle">{t.hero.subtitle}</p>
+        <p style={{ fontSize: "0.85rem", color: "rgba(255,255,255,0.6)", marginTop: "0.5rem", fontStyle: "italic" }}>
+          {quechuaNote}
+        </p>
         <a href="#about" className="hero-cta">
           {t.hero.cta}
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -233,6 +244,28 @@ function Culture() {
   );
 }
 
+function Saqsaywaman() {
+  const { t } = useLang();
+  if (!t.saqsaywaman) return null;
+  return (
+    <section id="saqsaywaman" className="section" style={{ background: "linear-gradient(180deg, #fefefe 0%, #f4f1eb 100%)" }}>
+      <ScrollReveal>
+        <p className="section-label">04</p>
+        <h2 className="section-title">{t.nav.saqsaywaman || "Saqsaywaman"}</h2>
+        <div className="section-divider" />
+      </ScrollReveal>
+      <ScrollReveal>
+        <div style={{ marginTop: "2rem", padding: "2rem", background: "#fff", borderRadius: "8px", border: "1px solid rgba(0,0,0,0.05)", boxShadow: "0 4px 20px rgba(0,0,0,0.03)" }}>
+          <h3 style={{ fontFamily: "var(--font-display)", fontSize: "1.3rem", fontWeight: 600, color: "var(--color-deep)", marginBottom: "1rem" }}>
+            {t.saqsaywaman.subtitle}
+          </h3>
+          <div style={{ fontSize: "1rem", lineHeight: "1.8", color: "var(--color-earth)", whiteSpace: "pre-line" }} dangerouslySetInnerHTML={{ __html: t.saqsaywaman.content.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') }} />
+        </div>
+      </ScrollReveal>
+    </section>
+  );
+}
+
 function Visiting() {
   const { t } = useLang();
   const cards = [
@@ -245,7 +278,7 @@ function Visiting() {
     <section id="visiting" style={{ background: "linear-gradient(180deg, var(--color-cream) 0%, #eee8dd 100%)" }}>
       <div className="section">
         <ScrollReveal>
-          <p className="section-label">04</p>
+          <p className="section-label">05</p>
           <h2 className="section-title">{t.visiting.title}</h2>
           <div className="section-divider" />
         </ScrollReveal>
@@ -286,9 +319,9 @@ function Transportation() {
 
   return (
     <section id="transportation" className="section">
-      <ScrollReveal>
-        <p className="section-label">05</p>
-        <h2 className="section-title">{t.transportation.title}</h2>
+        <ScrollReveal>
+          <p className="section-label">06</p>
+          <h2 className="section-title">{t.transportation.title}</h2>
         <div className="section-divider" />
       </ScrollReveal>
       <ScrollReveal>
@@ -360,7 +393,7 @@ function Tips() {
     <section id="tips" style={{ background: "linear-gradient(180deg, var(--color-cream) 0%, #e8e2d6 100%)" }}>
       <div className="section">
         <ScrollReveal>
-          <p className="section-label">06</p>
+          <p className="section-label">07</p>
           <h2 className="section-title">{t.tips.title}</h2>
           <div className="section-divider" />
         </ScrollReveal>
@@ -406,8 +439,8 @@ function Gallery() {
 
   return (
     <section id="gallery" className="section">
-      <ScrollReveal>
-        <p className="section-label">07</p>
+        <ScrollReveal>
+        <p className="section-label">08</p>
         <h2 className="section-title">{t.gallery.title}</h2>
         <div className="section-divider" />
       </ScrollReveal>
@@ -464,8 +497,8 @@ function Reviews() {
 
   return (
     <section id="reviews" className="section">
-      <ScrollReveal>
-        <p className="section-label">08</p>
+        <ScrollReveal>
+        <p className="section-label">09</p>
         <h2 className="section-title">{t.reviews.title}</h2>
         <p className="section-subtitle">{t.reviews.subtitle}</p>
         <div className="section-divider" />
@@ -519,7 +552,7 @@ function FAQ() {
     <section id="faq" className="section">
       <div className="section">
         <ScrollReveal>
-        <p className="section-label">09</p>
+        <p className="section-label">10</p>
         <h2 className="section-title">{t.faq.title}</h2>
           <p className="section-subtitle">{t.faq.subtitle}</p>
           <div className="section-divider" />
@@ -565,8 +598,8 @@ function Location() {
   const { t } = useLang();
   return (
     <section id="location" className="section">
-      <ScrollReveal>
-        <p className="section-label">10</p>
+        <ScrollReveal>
+        <p className="section-label">11</p>
         <h2 className="section-title">{t.location.title}</h2>
         <div className="section-divider" />
       </ScrollReveal>
@@ -641,6 +674,7 @@ export default function Home(props: { params: Promise<{ locale: string }> }) {
       <About />
       <Ecology />
       <Culture />
+      <Saqsaywaman />
       <Visiting />
       <Transportation />
       <Tips />
