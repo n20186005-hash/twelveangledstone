@@ -1,7 +1,17 @@
 const fs = require('fs');
 const path = require('path');
 
-const outDir = path.resolve(__dirname, '..', 'out');
+const projectRoot = path.resolve(__dirname, '..');
+
+// 预渲染 HTML 可能出现的目录：
+// - out/                              (output: 'export')
+// - .next/server/app/                  (output: 'standalone' / 默认)
+// - .next/standalone/.next/server/app/ (standalone 产物副本，OpenNext 实际读取)
+const htmlDirs = [
+  path.join(projectRoot, 'out'),
+  path.join(projectRoot, '.next', 'server', 'app'),
+  path.join(projectRoot, '.next', 'standalone', '.next', 'server', 'app'),
+];
 
 // Map of locale to HTML lang attribute value
 const langMap = {
@@ -25,7 +35,7 @@ function walkDir(dir, callback) {
 
 function fixHtmlLang(filePath) {
   let content = fs.readFileSync(filePath, 'utf-8');
-  
+
   // Determine locale from file path
   let lang = 'en';
   for (const [locale, htmlLang] of Object.entries(langMap)) {
@@ -37,14 +47,14 @@ function fixHtmlLang(filePath) {
       break;
     }
   }
-  
+
   // Replace lang attribute on <html> tag
   const htmlTagRegex = /<html[^>]*>/i;
   const htmlTagMatch = content.match(htmlTagRegex);
-  
-  if (htmlTagMatch) {
+
+  if (htmlTagMatch && !new RegExp(`lang\\s*=\\s*["']${lang}["']`, 'i').test(htmlTagMatch[0])) {
     let htmlTag = htmlTagMatch[0];
-    
+
     // Check if lang attribute exists
     if (/lang\s*=/i.test(htmlTag)) {
       // Replace existing lang attribute
@@ -53,13 +63,21 @@ function fixHtmlLang(filePath) {
       // Add lang attribute before the closing >
       htmlTag = htmlTag.replace(/>\s*$/, ` lang="${lang}">`);
     }
-    
+
     content = content.replace(htmlTagRegex, htmlTag);
     fs.writeFileSync(filePath, content, 'utf-8');
-    console.log(`✓ Fixed lang="${lang}" in ${path.relative(outDir, filePath)}`);
+    console.log(`✓ Fixed lang="${lang}" in ${path.relative(projectRoot, filePath)}`);
   }
 }
 
 console.log('Fixing HTML lang attributes...');
-walkDir(outDir, fixHtmlLang);
+let processed = 0;
+for (const dir of htmlDirs) {
+  if (!fs.existsSync(dir)) continue;
+  walkDir(dir, fixHtmlLang);
+  processed += 1;
+}
+if (processed === 0) {
+  console.log('! No prerendered HTML directory found, skipped.');
+}
 console.log('Done!');

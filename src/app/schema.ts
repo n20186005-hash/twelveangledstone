@@ -26,7 +26,7 @@ export function generateSchema(locale: string) {
         "name": name,
         "description": description,
         "url": localUrl,
-        "image": `${baseUrl}/gallery/twelveangledstone (1).jpg`,
+        "image": `${baseUrl}/gallery/twelve-angled-stone-1.jpg`,
         "address": {
           "@type": "PostalAddress",
           "streetAddress": "C. Hatunrumiyoc 480",

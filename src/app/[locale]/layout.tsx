@@ -79,7 +79,7 @@ export async function generateMetadata(
         : "Stone of the 12 Angles Travel Guide",
       images: [
         {
-          url: "/gallery/piedra-de-los-12-angulos (1).jpg",
+          url: "/gallery/twelve-angled-stone-1.jpg",
           width: 1200,
           height: 630,
           alt: locale === "es" ? "Piedra de los 12 ángulos - Cusco, Perú"
@@ -100,7 +100,7 @@ export async function generateMetadata(
         locale === 'zh' ? "十二边印加石旅行指南——探索秘鲁库斯科的印加古迹。" :
         locale === 'qu' ? "Piedra de los 12 ángulos rikuy, Cusco, Piruw." :
         "A travel guide to the Stone of the 12 Angles in Cusco, Peru.",
-      images: ["/gallery/piedra-de-los-12-angulos (1).jpg"],
+      images: ["/gallery/twelve-angled-stone-1.jpg"],
     },
     robots: {
       index: true,

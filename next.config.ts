@@ -2,7 +2,8 @@ import type { NextConfig } from "next";
 import path from "path";
 
 const nextConfig: NextConfig = {
-  output: "export",
+  // OpenNext (Cloudflare Workers) 需要 standalone 产物
+  output: "standalone",
   outputFileTracingRoot: path.join(__dirname, "./"),
   turbopack: {},
   webpack: (config) => {

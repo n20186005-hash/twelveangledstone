@@ -39,5 +39,10 @@ next-env.d.ts
 *.swp
 *.swo
 
+# cloudflare / opennext
+/.open-next/
+/.wrangler/
+.dev.vars
+
 # project specific
 pozos-azules.txt
