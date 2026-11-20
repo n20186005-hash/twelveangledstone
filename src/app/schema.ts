@@ -1,5 +1,6 @@
+import { siteUrl as baseUrl } from "./site-url";
+
 export function generateSchema(locale: string) {
-  const baseUrl = `https://${process.env.CURRENT_SITE_DOMAIN || "twelveangledstone.com"}`;
   const localUrl = `${baseUrl}/${locale}`;
 
   const name = locale === "es"

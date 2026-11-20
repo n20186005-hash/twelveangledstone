@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
   output: "standalone",
   outputFileTracingRoot: path.join(__dirname, "./"),
   turbopack: {},
+  experimental: { cpus: 1, staticGenerationMaxConcurrency: 2, webpackBuildWorker: true, webpackMemoryOptimizations: true },
   webpack: (config) => {
     return config;
   },

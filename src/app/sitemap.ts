@@ -1,53 +1,29 @@
-import { MetadataRoute } from 'next';
+import type { MetadataRoute } from "next";
+import { guideLocales, guidePath, guides } from "@/i18n/guides";
+import { cuscoPlaces } from "@/i18n/cusco-places";
+import { siteUrl } from "./site-url";
 
-export const dynamic = 'force-static';
+export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = `https://${process.env.CURRENT_SITE_DOMAIN || 'twelveangledstone.com'}`;
-
-  const languages = {
-    es: `${baseUrl}/es`,
-    en: `${baseUrl}/en`,
-    zh: `${baseUrl}/zh`,
-    qu: `${baseUrl}/qu`,
-  };
+  const homeLocales = [...guideLocales, "qu"];
+  const homeLanguages = Object.fromEntries(
+    [...homeLocales.map((locale) => [locale, `${siteUrl}/${locale}`]), ["x-default", `${siteUrl}/en`]],
+  );
 
   return [
-    {
-      url: `${baseUrl}/en`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 1,
-      alternates: {
-        languages,
-      },
-    },
-    {
-      url: `${baseUrl}/es`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 1,
-      alternates: {
-        languages,
-      },
-    },
-    {
-      url: `${baseUrl}/zh`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 1,
-      alternates: {
-        languages,
-      },
-    },
-    {
-      url: `${baseUrl}/qu`,
-      lastModified: new Date(),
-      changeFrequency: 'weekly',
-      priority: 0.9,
-      alternates: {
-        languages,
-      },
-    },
+    ...homeLocales.map((locale) => ({
+      url: homeLanguages[locale],
+      alternates: { languages: homeLanguages },
+    })),
+    ...[...guides, ...cuscoPlaces].flatMap(({ slug }) => {
+      const languages = Object.fromEntries(
+        guideLocales.map((locale) => [locale, siteUrl + guidePath(locale, slug)]),
+      );
+      return guideLocales.map((locale) => ({
+        url: languages[locale],
+        alternates: { languages: { ...languages, "x-default": languages.en } },
+      }));
+    }),
   ];
 }

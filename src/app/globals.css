@@ -1120,3 +1120,165 @@ body {
     padding: 1.25rem;
   }
 }
+
+.cusco-guide-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr));
+  gap: 1.25rem;
+  list-style: none;
+  padding: 0;
+}
+
+.cusco-guide-cards a,
+.cusco-guide-article a,
+.cusco-guide-header a:first-child {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.cusco-guide-header {
+  background: var(--color-deep);
+  color: #fff;
+}
+
+.cusco-guide-header h1 {
+  margin: 0.75rem 0;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 6vw, 4rem);
+  line-height: 1.12;
+}
+
+.cusco-guide-header p {
+  max-width: 42rem;
+  margin-bottom: 1.5rem;
+}
+
+.cusco-guide-article {
+  max-width: 52rem;
+  line-height: 1.7;
+}
+
+.cusco-guide-article section {
+  margin: 1.75rem 0;
+}
+
+.cusco-guide-article h2 {
+  font-family: var(--font-display);
+  font-size: 1.8rem;
+  line-height: 1.25;
+  margin-bottom: 0.5rem;
+}
+
+.cusco-guide-article ol,
+.cusco-guide-article ul {
+  padding-inline-start: 1.5rem;
+  list-style: revert;
+}
+
+.cusco-guide-article li + li {
+  margin-top: 0.4rem;
+}
+
+.cusco-guide-languages {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.cusco-guide-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+.cusco-guide-actions > a:last-child,
+.cusco-nearby-links a {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.cusco-guide-photo {
+  margin: 1.75rem 0;
+}
+
+.cusco-guide-photo img {
+  width: auto;
+  max-width: 100%;
+  max-height: 38rem;
+  height: auto;
+  border-radius: 8px;
+}
+
+.cusco-guide-photo figcaption {
+  margin-top: 0.5rem;
+}
+
+.cusco-nearby-group {
+  margin-block: 1.75rem;
+}
+
+.cusco-nearby-links {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+  gap: 0.6rem 1rem;
+  list-style: none;
+  padding: 0;
+}
+
+.cusco-nearby-links a {
+  display: block;
+  padding: 0.55rem 0;
+}
+
+[data-theme='dark'] .cusco-guide-header {
+  background: #18231a;
+}
+
+[data-theme='dark'] .cusco-guide-header .hero-cta {
+  color: #1a1612;
+}
+
+@media (max-width: 480px) {
+  .cusco-guide-header > .section {
+    padding-block: 3rem;
+  }
+
+  .cusco-guide-article {
+    padding-block: 2rem;
+  }
+
+  .cusco-guide-management.info-card {
+    padding: 1.3rem;
+  }
+}
+
+.cusco-guide-summary {
+  display: grid;
+  gap: 0.65rem;
+  margin-block: 1rem 1.5rem;
+  max-width: 44rem;
+}
+.cusco-guide-summary dt {
+  font-weight: 600;
+}
+.cusco-guide-summary a {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+.cusco-guide-table {
+  width: 100%;
+  text-align: start;
+  border-collapse: collapse;
+}
+.cusco-guide-table th,
+.cusco-guide-table td {
+  padding: 0.65rem 0.55rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-stone), transparent 70%);
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+.cusco-guide-table th {
+  width: 34%;
+  text-align: start;
+}

@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
+import { siteUrl } from "./site-url";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -13,7 +14,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL(`https://${process.env.CURRENT_SITE_DOMAIN || 'twelveangledstone.com'}`),
+  metadataBase: new URL(siteUrl),
   alternates: {
     canonical: "/en",
     languages: {

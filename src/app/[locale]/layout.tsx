@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import "../globals.css";
+import { siteUrl as baseUrl } from "../site-url";
 
 const cormorant = Cormorant_Garamond({
   weight: ["400", "600", "700"],
@@ -17,7 +18,6 @@ const dmSans = DM_Sans({
   display: "swap",
 });
 
-const baseUrl = `https://${process.env.CURRENT_SITE_DOMAIN || "twelveangledstone.com"}`;
 
 export async function generateMetadata(
   { params }: { params: Promise<{ locale: string }> }
@@ -29,7 +29,7 @@ export async function generateMetadata(
       default: locale === "es" ? "Piedra de los 12 ángulos — Cusco, Perú"
         : locale === "zh" ? "十二边印加石 — 秘鲁库斯科"
         : locale === "qu" ? "Piedra de los 12 ángulos — Cusco, Piruw"
-        : "Stone of the 12 Angles — Cusco, Peru",
+        : "Twelve-Angled Stone — Cusco, Peru",
       template: locale === "es" ? "%s | Piedra de los 12 ángulos"
         : locale === "zh" ? "%s | 十二边印加石"
         : locale === "qu" ? "%s | Piedra de los 12 ángulos"
@@ -68,7 +68,7 @@ export async function generateMetadata(
       title: locale === "es" ? "Piedra de los 12 ángulos — Cusco, Perú"
         : locale === "zh" ? "十二边印加石 — 秘鲁库斯科"
         : locale === "qu" ? "Piedra de los 12 ángulos — Cusco, Piruw"
-        : "Stone of the 12 Angles — Cusco, Peru",
+        : "Twelve-Angled Stone — Cusco, Peru",
       description: locale === 'es' ? "Guía de viaje a la Piedra de los 12 ángulos en Cusco, Perú. La piedra inca con doce lados." :
         (locale === 'zh' ? "十二边印加石旅行指南——探索秘鲁库斯科的印加古迹。" :
         (locale === 'qu' ? "Piedra de los 12 ángulos rikuy, Cusco, Piruw." :
@@ -94,7 +94,7 @@ export async function generateMetadata(
       title: locale === "es" ? "Piedra de los 12 ángulos — Cusco, Perú"
         : locale === "zh" ? "十二边印加石 — 秘鲁库斯科"
         : locale === "qu" ? "Piedra de los 12 ángulos — Cusco, Piruw"
-        : "Stone of the 12 Angles — Cusco, Peru",
+        : "Twelve-Angled Stone — Cusco, Peru",
       description:
         locale === 'es' ? "Guía de viaje a la Piedra de los 12 ángulos en Cusco, Perú." :
         locale === 'zh' ? "十二边印加石旅行指南——探索秘鲁库斯科的印加古迹。" :
@@ -131,34 +131,6 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-export function generateStaticParams() {
-  return [{ locale: "es" }, { locale: "en" }, { locale: "zh" }, { locale: "qu" }];
-}
-
-import { generateSchema } from "../schema";
-
-function SchemaScript({ locale }: { locale: string }) {
-  const schema = generateSchema(locale);
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-    />
-  );
-}
-
-export default async function LocaleLayout({
-  children,
-  params,
-}: Readonly<{
-  children: React.ReactNode;
-  params: Promise<{ locale: string }>;
-}>) {
-  const { locale } = await params;
-  return (
-    <>
-      <SchemaScript locale={locale} />
-      {children}
-    </>
-  );
+export default function LocaleLayout({ children }: { children: React.ReactNode }) {
+  return children;
 }
