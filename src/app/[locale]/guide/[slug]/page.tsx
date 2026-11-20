@@ -17,8 +17,6 @@ const photos: Readonly<Partial<Record<string, GuidePhoto>>> = photoData;
 const guideSlugs = [...guides, ...cuscoPlaces].map(({ slug }) => slug);
 const touristTicket = "https://cosituc.gob.pe/inicio-web2/";
 
-export const dynamicParams = false;
-
 export function generateStaticParams() {
   return guideLocales.flatMap((locale) => guideSlugs.map((slug) => ({ locale, slug })));
 }
