@@ -7,6 +7,7 @@ import { cuscoPlaces, languageIndex, managers } from "@/i18n/cusco-places";
 import { accessLabels, areaLabels, directionsMap, placeBySlug, placeMap, roadRoute, transportByArea, tripMap, visitLabels } from "@/i18n/cusco-visit";
 import { admission, circuitPrice, details, kindLabels, sectionLabels, stayAreas, tariff } from "@/i18n/cusco-details";
 import { guideClusters, regionalDetails } from "@/i18n/cusco-regional-details";
+import { expandedGuideLabels, visitorNotes } from "@/i18n/cusco-visitor-notes";
 import { questions } from "@/i18n/cusco-questions";
 import photoData from "@/i18n/cusco-photos.json";
 import SiteFooter from "@/components/SiteFooter";
@@ -66,6 +67,8 @@ export default async function GuidePage({ params }: Props) {
   const { place, locale, slug, i, title, description, copy, labels } = await getGuide(params);
   const ui = visitLabels[locale];
   const sections = sectionLabels[locale];
+  const expanded = expandedGuideLabels[locale];
+  const notes = visitorNotes[slug];
   const [kind, tagline, visitTip, circuit] = details[slug] ?? regionalDetails[slug];
   const published = admission[slug];
   const manager = managers[place.manager];
@@ -139,6 +142,7 @@ export default async function GuidePage({ params }: Props) {
             <p>{tagline[i]}</p>
             <dl className="cusco-guide-summary">
               <div><dt>{ui.hours}</dt><dd>{hours}</dd></div>
+              <div><dt>{ui.address}</dt><dd><a href={map}>{place.address}</a></dd></div>
               <div>
                 <dt>{ui.rating}</dt>
                 {slug === "hatun-rumiyoc" && <dd>{sections.reviewSnapshot}</dd>}
@@ -152,6 +156,13 @@ export default async function GuidePage({ params }: Props) {
           </div>
         </header>
         <article className="section cusco-guide-article">
+          <nav className="cusco-guide-contents" aria-label={ui.visit}>
+            <a href="#basic-information">{ui.basic}</a>
+            <a href="#admission">{ui.entry}</a>
+            <a href="#visit-route">{place.area === "day" ? roadRoute[i] : labels.route}</a>
+            <a href="#photo-spots">{labels.photo}</a>
+            <a href="#location">{sections.location}</a>
+          </nav>
           <section id="discover">
             <h2>{sections.intro}</h2>
             <p>{description}</p>
@@ -170,20 +181,21 @@ export default async function GuidePage({ params }: Props) {
             {copy && <p>{place.history[i]}</p>}
             <p><a href={managementReference}>{ui.official}</a></p>
           </section>
-          <section id="basic-information">
+          <section id="basic-information" className="info-card cusco-guide-basics">
             <h2>{ui.basic}</h2>
             <table className="cusco-guide-table" aria-label={ui.basic}>
               <tbody>
-                {[
+                {([
                   [sections.name, place.name[i]],
                   [sections.kind, kindLabels[kind][i]],
-                  [ui.address, place.address],
+                  [ui.address, <a href={map}>{place.address}</a>],
+                  [sections.highlights, tagline[i]],
                   [sections.city, sections.region],
                   [ui.area, areaLabels[place.area][i]],
                   [ui.management, manager.name[i]],
                   [ui.hours, hours],
                   [ui.entry, price],
-                ].map(([label, value]) => <tr key={label}><th scope="row">{label}</th><td>{value}</td></tr>)}
+                ] as const).map(([label, value]) => <tr key={label}><th scope="row">{label}</th><td>{value}</td></tr>)}
               </tbody>
             </table>
           </section>
@@ -201,6 +213,8 @@ export default async function GuidePage({ params }: Props) {
           <section id="transport">
             <h2>{ui.transport}</h2>
             <p>{copy || directMap ? place.walk[i] : transportByArea[place.area][i]}</p>
+            {notes ? <p><strong>{expanded.access}</strong> · {notes.arrival[i]}</p>
+              : !copy && !directMap && <p><strong>{expanded.entrance}</strong> · {route[0]}</p>}
             <p><a href={directMap ? map : directionsMap(place)}>
               {directMap ? labels.map : tripMap[i]}
             </a></p>
@@ -208,6 +222,7 @@ export default async function GuidePage({ params }: Props) {
           <section id="history-and-architecture">
             <h2>{labels.history}</h2>
             <p>{copy?.history ?? place.history[i]}</p>
+            {notes && <><h3>{expanded.experience}</h3><p>{notes.experience[i]}</p></>}
             {photo && (
               <figure className="cusco-guide-photo">
                 <Image src={`/cusco/${slug}.webp`} alt={place.name[i]} width={photo.width} height={photo.height}
@@ -240,6 +255,7 @@ export default async function GuidePage({ params }: Props) {
           <section id="visitor-reviews">
             <h2>{ui.rating}</h2>
             {slug === "hatun-rumiyoc" && <p>{sections.reviewSnapshot}</p>}
+            <p>{expanded.live}</p>
             <p><a href={map}>{ui.liveReviews}</a></p>
           </section>
           <section id="location">

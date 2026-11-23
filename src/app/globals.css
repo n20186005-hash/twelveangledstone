@@ -1321,3 +1321,19 @@ body {
     padding-inline: 1rem;
   }
 }
+
+.cusco-guide-contents {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem 1.25rem;
+  border-bottom: 1px solid color-mix(in srgb, var(--color-stone), transparent 70%);
+  padding-bottom: 1rem;
+}
+
+.cusco-guide-article section[id] {
+  scroll-margin-top: 5.5rem;
+}
+
+.cusco-guide-basics.info-card {
+  padding: clamp(0.85rem, 3vw, 2rem);
+}

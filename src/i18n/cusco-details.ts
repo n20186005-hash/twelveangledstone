@@ -63,6 +63,13 @@ const baroque = "https://rutadelbarrocoandino.com/info-util/";
 const cultureParks = "https://www.culturacusco.gob.pe/parques";
 
 export const admission: Partial<Record<string, Admission>> = {
+  "mercado-san-pedro": {
+    source: "https://www.peru.travel/es/atractivos/mercado-san-pedro",
+    hours: ["06:00–17:00 (indicative market hours; stalls vary).", "06:00–17:00 (horario referencial; cada puesto puede variar).", "06:00–17:00（市场参考时段，各摊位营业时间可能不同）。"],
+  },
+  tipon: { source: `${cultureParks}/tipon2/`, hours: ["07:00–16:30", "07:00–16:30", "07:00–16:30"] },
+  pikillacta: { source: `${cultureParks}/pikillaqta/`, hours: ["07:00–16:30", "07:00–16:30", "07:00–16:30"] },
+  ollantaytambo: { source: `${cultureParks}/ollantaytambo/`, hours: ["07:00–16:30", "07:00–16:30", "07:00–16:30"] },
   "museo-contemporaneo": {
     source: "https://consultasenlinea.mincetur.gob.pe/fichaInventario/index.aspx?cod_Ficha=8213",
     hours: ["MINCETUR lists Mon–Sat 09:00–17:00.", "MINCETUR indica lun–sáb 09:00–17:00.", "秘鲁旅游资源名录列为周一至周六 09:00–17:00。"],
@@ -156,7 +163,7 @@ export const stayAreas: Record<string, Localized> = {
 };
 
 export const sectionLabels = {
-  en: { intro: "Discover the site", highlights: "Highlights", kind: "Type of attraction", name: "Place name", city: "Region and country", region: "Cusco, Peru", notice: "Visiting notes", stay: "Where to stay", location: "Address and map", operator: "Published visitor information", checked: "Source checked 20 November 2026. Confirm changes with the operator.", reviewSnapshot: "Google Maps rating, updated 23 November 2026: 4.6/5 from 14,593 reviews." },
-  es: { intro: "Descubre el lugar", highlights: "Qué destaca", kind: "Tipo de atractivo", name: "Nombre del lugar", city: "Región y país", region: "Cusco, Perú", notice: "Antes de la visita", stay: "Dónde alojarse", location: "Dirección y mapa", operator: "Información de visita publicada", checked: "Fuente consultada el 20 de noviembre de 2026. Confirma los cambios con el operador.", reviewSnapshot: "Valoración de Google Maps actualizada el 23 de noviembre de 2026: 4,6/5, con 14.593 opiniones." },
-  zh: { intro: "探索景点", highlights: "景区特色", kind: "景点类型", name: "景点名称", city: "地区与国家", region: "秘鲁库斯科", notice: "游览须知", stay: "住宿建议", location: "交通指南与地图", operator: "官方参观信息", checked: "资料核对于 2026 年 11 月 20 日，临时调整以运营方公告为准。", reviewSnapshot: "Google Maps 评分 4.6/5，共 14,593 条评价（2026 年 11 月 23 日更新）。" },
+  en: { intro: "Discover the site", highlights: "Highlights", kind: "Type of attraction", name: "Place name", city: "Region and country", region: "Cusco, Peru", notice: "Visiting notes", stay: "Where to stay", location: "Address and map", operator: "Published visitor information", checked: "Confirm current hours with the operator before travelling.", reviewSnapshot: "Google Maps rating, updated 23 November 2026: 4.6/5 from 14,593 reviews." },
+  es: { intro: "Descubre el lugar", highlights: "Qué destaca", kind: "Tipo de atractivo", name: "Nombre del lugar", city: "Región y país", region: "Cusco, Perú", notice: "Antes de la visita", stay: "Dónde alojarse", location: "Dirección y mapa", operator: "Información de visita publicada", checked: "Confirma el horario vigente con el operador antes de salir.", reviewSnapshot: "Valoración de Google Maps actualizada el 23 de noviembre de 2026: 4,6/5, con 14.593 opiniones." },
+  zh: { intro: "探索景点", highlights: "景区特色", kind: "景点类型", name: "景点名称", city: "地区与国家", region: "秘鲁库斯科", notice: "游览须知", stay: "住宿建议", location: "交通指南与地图", operator: "官方参观信息", checked: "出发前请向管理单位核对开放时间，临时调整以公告为准。", reviewSnapshot: "Google Maps 评分 4.6/5，共 14,593 条评价（2026 年 11 月 23 日更新）。" },
 };
