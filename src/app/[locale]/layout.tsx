@@ -1,6 +1,8 @@
-import type { Metadata, Viewport } from "next";
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
-import "../globals.css";
+import Document, { viewport as siteViewport } from "../document";
+import { isGuideLocale } from "@/i18n/guides";
 import { siteUrl as baseUrl } from "../site-url";
 
 const cormorant = Cormorant_Garamond({
@@ -126,11 +128,17 @@ export async function generateMetadata(
   };
 }
 
-export const viewport: Viewport = {
-  width: "device-width",
-  initialScale: 1,
-};
+export const viewport = siteViewport;
 
-export default function LocaleLayout({ children }: { children: React.ReactNode }) {
-  return children;
+export default async function LocaleLayout({
+  children,
+  params,
+}: {
+  children: React.ReactNode;
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  if (!isGuideLocale(locale) && locale !== "qu") notFound();
+
+  return <Document lang={locale}>{children}</Document>;
 }

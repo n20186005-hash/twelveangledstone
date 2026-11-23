@@ -1,7 +1,6 @@
-import type { Metadata, Viewport } from "next";
+import type { Viewport } from "next";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
-import { siteUrl } from "./site-url";
 
 export const viewport: Viewport = {
   width: "device-width",
@@ -13,27 +12,15 @@ export const viewport: Viewport = {
   ],
 };
 
-export const metadata: Metadata = {
-  metadataBase: new URL(siteUrl),
-  alternates: {
-    canonical: "/en",
-    languages: {
-      "es": "/es",
-      "en": "/en",
-      "zh": "/zh",
-      "qu": "/qu",
-      "x-default": "/en",
-    },
-  },
-};
-
-export default function RootLayout({
+export default function Document({
+  lang,
   children,
-}: Readonly<{
+}: {
+  lang: string;
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={lang} suppressHydrationWarning>
       <body className="antialiased">
         <ThemeProvider attribute="data-theme" defaultTheme="system" enableSystem>
           {children}
