@@ -69,7 +69,7 @@ export default function CookiesClient() {
   };
 
   return (
-    <div style={{ minHeight: "100vh", background: "var(--color-cream)", padding: "2rem" }}>
+    <div lang="zh" style={{ minHeight: "100vh", background: "var(--color-cream)", padding: "2rem" }}>
       <div style={{ maxWidth: "800px", margin: "0 auto", background: "#fff", padding: "3rem", borderRadius: "2px", boxShadow: "0 2px 16px rgba(0,0,0,0.05)" }}>
         <h1 style={{ fontFamily: "var(--font-display)", fontSize: "2.5rem", color: "var(--color-deep)", marginBottom: "1rem" }}>
           Cookie 设置

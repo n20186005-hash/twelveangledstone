@@ -2,8 +2,9 @@ import type { Metadata } from "next";
 import CookiesClient from "./CookiesClient";
 
 export const metadata: Metadata = {
-  title: "Cookie Settings | Parque Bicentenario Travel Guide",
-  description: "Manage your cookie preferences",
+  title: "Cookie 设置 | 十二边印加石旅行指南",
+  description: "管理十二边印加石旅行指南的 Cookie 偏好",
+  alternates: { canonical: "/cookies", languages: {} },
 };
 
 export default function CookiesPage() {

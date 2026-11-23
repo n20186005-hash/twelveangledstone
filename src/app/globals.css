@@ -1131,13 +1131,15 @@ body {
 
 .cusco-guide-cards a,
 .cusco-guide-article a,
-.cusco-guide-header a:first-child {
+.cusco-guide-header .cusco-guide-summary a {
   text-decoration: underline;
   text-underline-offset: 0.2em;
 }
 
 .cusco-guide-header {
-  background: var(--color-deep);
+  position: relative;
+  isolation: isolate;
+  background: #1a2e1a;
   color: #fff;
 }
 
@@ -1177,12 +1179,6 @@ body {
 
 .cusco-guide-article li + li {
   margin-top: 0.4rem;
-}
-
-.cusco-guide-languages {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem;
 }
 
 .cusco-guide-actions {
@@ -1240,10 +1236,6 @@ body {
 }
 
 @media (max-width: 480px) {
-  .cusco-guide-header > .section {
-    padding-block: 3rem;
-  }
-
   .cusco-guide-article {
     padding-block: 2rem;
   }
@@ -1281,4 +1273,51 @@ body {
 .cusco-guide-table th {
   width: 34%;
   text-align: start;
+}
+
+.cusco-guide-nav {
+  gap: 1rem;
+}
+
+.cusco-guide-nav > a {
+  color: white;
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+
+.cusco-guide-nav .lang-btn {
+  text-decoration: none;
+}
+
+.cusco-guide-header > .section {
+  padding-block: clamp(6rem, 13vw, 10rem) clamp(2.5rem, 6vw, 5rem);
+}
+
+.cusco-guide-cover {
+  background: none;
+  z-index: -1;
+}
+
+.cusco-guide-cover img {
+  object-fit: cover;
+}
+
+.cusco-guide-cover::after {
+  background: linear-gradient(90deg, rgba(13, 29, 17, 0.93), rgba(13, 29, 17, 0.53)),
+    linear-gradient(0deg, rgba(13, 29, 17, 0.75), transparent);
+}
+
+.cusco-guide-article h2::after {
+  content: '';
+  display: block;
+  width: 2.5rem;
+  height: 2px;
+  margin-block: 0.55rem 0.75rem;
+  background: var(--color-gold);
+}
+
+@media (max-width: 480px) {
+  .cusco-guide-nav {
+    padding-inline: 1rem;
+  }
 }

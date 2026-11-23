@@ -10,6 +10,13 @@ const LANG_LABELS: Record<Locale, string> = {
   qu: "QU",
 };
 
+const LANG_NAMES: Record<Locale, string> = {
+  zh: "中文",
+  en: "English",
+  es: "Español",
+  qu: "Runasimi",
+};
+
 export function LanguageSwitcher() {
   const { locale } = useLang();
   return (
@@ -23,7 +30,9 @@ export function LanguageSwitcher() {
               window.location.href = `/${l}${window.location.hash}`;
             }
           }}
-          aria-label={`Switch to ${l}`}
+          lang={l}
+          aria-label={LANG_NAMES[l]}
+          aria-current={locale === l ? "page" : undefined}
         >
           {LANG_LABELS[l]}
         </button>

@@ -37,7 +37,7 @@ function fixHtmlLang(filePath) {
   let content = fs.readFileSync(filePath, 'utf-8');
 
   // Determine locale from file path
-  let lang = 'en';
+  let lang = /^(privacy|terms|cookies)\.html$/.test(path.basename(filePath)) ? 'zh' : 'en';
   for (const [locale, htmlLang] of Object.entries(langMap)) {
     // Check if the file path contains the locale directory
     const localePattern = path.sep + locale + path.sep;

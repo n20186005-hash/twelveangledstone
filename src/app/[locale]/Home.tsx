@@ -4,6 +4,8 @@ import React, { useEffect, useState, useRef } from "react";
 import Link from "next/link";
 import { LangProvider, useLang } from "@/components/LangProvider";
 import { useTheme } from "next-themes";
+import SiteFooter from "@/components/SiteFooter";
+import type { Locale } from "@/i18n/translations";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { guideLabels, guidePath, guides, isGuideLocale } from "@/i18n/guides";
 import galleryImagesData from "@/gallery-data.json";
@@ -11,12 +13,12 @@ import galleryImagesData from "@/gallery-data.json";
 const MAPS_URL = "https://maps.app.goo.gl/79MfxrTMHU53c33J6";
 
 const GOOGLE_REVIEWS = [
-  { name: "María G.", avatar: "MG", rating: 5, date: "2024-11-20", text: "Increíble ver la Piedra de los 12 ángulos en persona. La precisión del corte de la piedra es asombrosa. Un must-see en Cusco." },
-  { name: "John S.", avatar: "JS", rating: 5, date: "2024-10-15", text: "The Stone of the 12 Angles is a masterpiece of Inca stonework. You can't even fit a blade between the stones. Amazing architectural achievement!" },
-  { name: "Carlos R.", avatar: "CR", rating: 5, date: "2024-09-10", text: "Una obra maestra de la arquitectura inca. La piedra de doce lados es impresionante. Gratis y abierto 24 horas." },
-  { name: "李小美", avatar: "李", rating: 5, date: "2024-08-25", text: "十二边印加石真的很震撼！石头切割的精度令人惊叹，两千多年了仍然严丝合缝。库斯科必看的景点！" },
-  { name: "Ana P.", avatar: "AP", rating: 5, date: "2024-07-18", text: "Hermoso ejemplo de la arquitectura inca. La piedra de doce ángulos es única en el mundo. Muy recomendado visitar." },
-  { name: "Michael T.", avatar: "MT", rating: 5, date: "2024-06-05", text: "Fantastic example of Inca masonry. The twelve-sided stone is world-famous for good reason. Free to visit and open 24/7!" },
+  { name: "María G.", lang: "es", avatar: "MG", rating: 5, date: "2024-11-20", text: "Increíble ver la Piedra de los 12 ángulos en persona. La precisión del corte de la piedra es asombrosa. Un must-see en Cusco." },
+  { name: "John S.", lang: "en", avatar: "JS", rating: 5, date: "2024-10-15", text: "The Stone of the 12 Angles is a masterpiece of Inca stonework. You can't even fit a blade between the stones. Amazing architectural achievement!" },
+  { name: "Carlos R.", lang: "es", avatar: "CR", rating: 5, date: "2024-09-10", text: "Una obra maestra de la arquitectura inca. La piedra de doce lados es impresionante. Gratis y abierto 24 horas." },
+  { name: "李小美", lang: "zh", avatar: "李", rating: 5, date: "2024-08-25", text: "十二边印加石真的很震撼！石头切割的精度令人惊叹，两千多年了仍然严丝合缝。库斯科必看的景点！" },
+  { name: "Ana P.", lang: "es", avatar: "AP", rating: 5, date: "2024-07-18", text: "Hermoso ejemplo de la arquitectura inca. La piedra de doce ángulos es única en el mundo. Muy recomendado visitar." },
+  { name: "Michael T.", lang: "en", avatar: "MT", rating: 5, date: "2024-06-05", text: "Fantastic example of Inca masonry. The twelve-sided stone is world-famous for good reason. Free to visit and open 24/7!" },
 ];
 
 function ScrollReveal({ children, className = "" }: { children: React.ReactNode; className?: string }) {
@@ -35,6 +37,7 @@ function ScrollReveal({ children, className = "" }: { children: React.ReactNode;
 }
 
 function ThemeToggle() {
+  const { locale } = useLang();
   const { theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
@@ -49,7 +52,7 @@ function ThemeToggle() {
     <button
       onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
       className="theme-toggle-btn"
-      aria-label="Toggle theme"
+      aria-label={{ zh: "切换主题", en: "Toggle theme", es: "Cambiar tema", qu: "Qhawana llimp’ita tikray" }[locale]}
       style={{
         background: "none",
         border: "none",
@@ -150,7 +153,7 @@ function Hero() {
         <div className="hero-meta">
           <div className="hero-rating">4.6</div>
           <div className="hero-stars">★ ★ ★ ★ ★</div>
-          <div className="hero-reviews">13,911 {t.rating.reviews} · {t.rating.source}</div>
+          <div className="hero-reviews">14,593 {t.rating.reviews} · {t.rating.source}</div>
         </div>
       </a>
     </section>
@@ -518,7 +521,7 @@ function Reviews() {
                   {"★".repeat(review.rating)}{"☆".repeat(5 - review.rating)}
                 </div>
               </div>
-              <p className="review-text">{review.text}</p>
+              <p className="review-text" lang={review.lang}>{review.text}</p>
               <div className="review-source">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
                   <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#4285F4"/>
@@ -655,42 +658,9 @@ function WalkingGuides() {
   );
 }
 
-function Footer() {
-  const { t } = useLang();
+export default function Home({ locale, children }: { locale: Locale; children?: React.ReactNode }) {
   return (
-    <footer className="site-footer">
-      <div className="footer-links">
-        <p className="footer-links-title">{t.footer.linksTitle}</p>
-        <div className="footer-links-grid">
-          {t.footer.links.map((link: { name: string; url: string }, i: number) => (
-            <a key={i} href={link.url} target="_blank" rel="noopener noreferrer" className="footer-link-item">
-              {link.name}
-            </a>
-          ))}
-        </div>
-      </div>
-      <div className="footer-legal" style={{ maxWidth: "1100px", margin: "0 auto", padding: "1rem 2rem 0", textAlign: "center" }}>
-        <Link href="/privacy" style={{ color: "rgba(255,255,255,0.5)", textDecoration: "none", fontSize: "0.8rem", marginRight: "1.5rem" }}>
-          Privacy Policy
-        </Link>
-        <Link href="/terms" style={{ color: "rgba(255,255,255,0.5)", textDecoration: "none", fontSize: "0.8rem", marginRight: "1.5rem" }}>
-          Terms of Service
-        </Link>
-        <Link href="/cookies" style={{ color: "rgba(255,255,255,0.5)", textDecoration: "none", fontSize: "0.8rem" }}>
-          Cookie Settings
-        </Link>
-      </div>
-      <p className="footer-text" style={{ marginTop: "2rem", fontSize: "0.9rem", fontWeight: 600, color: "var(--color-gold)" }}>
-        {t.footer.callToAction}
-      </p>
-      <p className="footer-text" style={{ marginTop: "1rem", whiteSpace: "pre-line" }}>{t.footer.text}</p>
-    </footer>
-  );
-}
-
-export default function Home({ locale, children }: { locale: string; children?: React.ReactNode }) {
-  return (
-    <LangProvider initialLocale={locale as "en" | "zh" | "es" | "qu"}>
+    <LangProvider initialLocale={locale}>
       <Nav />
       <Hero />
       <About />
@@ -706,7 +676,7 @@ export default function Home({ locale, children }: { locale: string; children?: 
       <Location />
       <WalkingGuides />
       {children}
-      <Footer />
+      <SiteFooter locale={locale} />
     </LangProvider>
   );
 }

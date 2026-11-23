@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import Home from "./Home";
 import NearbyPlaces from "./NearbyPlaces";
 import { isGuideLocale } from "@/i18n/guides";
@@ -9,6 +10,7 @@ export function generateStaticParams() {
 
 export default async function LocaleHome({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
+  if (!isGuideLocale(locale) && locale !== "qu") notFound();
 
   return (
     <>
